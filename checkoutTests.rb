@@ -93,12 +93,14 @@ end
 
 class Checkout
 	def initialize(display)
+		# constructor
 		@display = display
 		@a_count = 0
 		@b_count = 0
 	end
 
 	def scan(q)
+		# need to make sure total is initialised.. otherwise things go bang
 		ensure_set_i
 		if (q == 'A')
 			@i += 50
@@ -118,6 +120,7 @@ class Checkout
 	end
 
 	def ensure_set_i
+		# is it set?
 		if (@i.nil?)
 			@i = 0
 		end
@@ -127,8 +130,10 @@ class Checkout
 		if (@a_count == 3)
 			@i -= (@a_count == 3) ? 20 : 0
 		else
+			# need to make sure we deal with multiple A SOs
 			@i -= (@a_count % 3 == 0) ? @a_count / 3 * 20 : 0
 		end
+		# b specials
 		@i -= (@b_count == 2 || @b_count % 2 == 0) ? @b_count /2 * 15 : 0
 		@display.show_total(@i)
 	end
